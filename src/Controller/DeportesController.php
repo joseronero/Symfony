@@ -8,7 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\Noticia;
+use App\Form\login;
+
 
 class DeportesController extends Controller {
   
@@ -17,10 +20,44 @@ class DeportesController extends Controller {
      */
     public function inicio() {
        $error='';
-       return $this->render('base.html.twig', [
-                    'error' => $error]);
+       return $this->redirectToRoute('login_seguro');
     }
     
+    /**
+     * @Route("/deportes/nuevousuario", name="usuariobd")
+     */
+    public function nuevoUsuarioBd() {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = new Usuario();
+        $usuario->setEmail("juan@imaginaformacion.com");
+        $usuario->setUsername("juan");
+        $password = $this->get('security.password_encoder')
+                ->encodePassword($usuario, "imagina");
+        $usuario->setPassword($password);
+        $em->persist($usuario);
+        $em->flush();
+        return new Response("Usuario guardado!");
+    }
+    
+    
+    /**
+     * @Route("/deportes/login", name="login_seguro" )
+     */
+    public function loginUsuario(Request $request, AuthenticationUtils $authUtils)
+    {
+        // get the login error if there is one
+        $error = $authUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authUtils->getLastUsername();
+
+        return $this->render('Security/login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ));
+    }
+    
+
     /**
      * @Route("/deportes/cargarBd", name="noticia")
      */
@@ -88,7 +125,7 @@ class DeportesController extends Controller {
         //Buscamos las noticias de una sección
         $noticiaSec = $repository->findOneBy(['seccion' => $seccion]);
         // Si la sección no existe saltará una excepción
-        $error="";
+        $error='';
         if (!$noticiaSec) {
             $error= 'Error 404 Página no encontrada';
             return $this->render('base.html.twig', [
@@ -122,15 +159,17 @@ class DeportesController extends Controller {
         $repository = $this->getDoctrine()->getRepository(Noticia::class);
         $noticia = $repository->findOneBy(['textoTitular' => $titular]);
         // Si la noticia que buscamos no se encuentra lanzamos error 404
+        $error='';
         if (!$noticia) {
             // Ahora que controlamos el manejo de plantilla twig, vamos a
             // redirigir al usuario a la página de inicio
             // y mostraremos el error 404, para así no mostrar la página de
             // errores generica de symfony
-            throw $this->createNotFoundException('Error 404 este deporte no
-                                                  está en nuestra Base de Datos');
-            return $this->render("base.html.twig", ['texto' => "Error 404 Página "
-                                                   . "no encontrada"]);
+            //throw $this->createNotFoundException('Error 404 este deporte no
+            //                                      está en nuestra Base de Datos');
+            $error= 'Error 404 Página no encontrada';
+            return $this->render('base.html.twig', [
+                    'error' => $error]);
         }
         return $this->render('noticias/noticia.html.twig', [
                     // Parseamos el titular para quitar los símbolos -
@@ -146,9 +185,16 @@ class DeportesController extends Controller {
      */
     public function rutaAvanzadaListado($_idioma, $fecha, $seccion, $equipo, $pagina) {
         
-        return new Response(sprintf('Listado de noticias en idioma=%s,
-                                     fehca=%s,deporte=%s,equipo=%s, página=%s ', 
-                                     $_idioma, $fecha, $seccion, $equipo, $pagina));
+       //Realizamos una consulta un poco más avanzada. La función para
+        //realizar esta consulta está en /serc/Repository/NoticiasRepository.php
+        //Esta página se genera automaticamente para dar soporte a estas consultas
+        $em=$this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Noticia::class);
+
+        $noticias= $repository->listadoNoticias($seccion,$fecha,$equipo);
+        return $this->render('noticias/listar.html.twig', [
+            'titulo' => ucwords(str_replace('-', ' ', $seccion)),
+            'noticias'=>$noticias]);
     }
     
     /**
@@ -157,18 +203,19 @@ class DeportesController extends Controller {
      *        requirements={"_idioma": "es|en","_formato": "html|json|xml",
      *                      "fecha": "[\d+]{8}"})
      */
-    public function rutaAvanzada($_idioma, $fecha, $seccion, $equipo, $slug) {
+    public function rutaAvanzada($_idioma, $fecha, $seccion, $equipo, $titular) {
         
-        // Simulamos una base de datos de equipos o personas
-        $deportes = ["valencia", "barcelona", "federer", "rafa-nadal"];
-        // Si el equipo o persona que buscamos no se encuentra redirigimos
-        // al usuario a la página de inicio
-        if(!in_array($equipo,$deportes)) {
-           return $this->redirectToRoute('inicio');
-        }
-        return new Response(sprintf( 'Mi noticia en idioma=%s,
-                                     fehca=%s,deporte=%s,equipo=%s, noticia=%s ', 
-                                     $_idioma, $fecha, $seccion, $equipo, $slug));
+       //Realizamos una consulta un poco más avanzada. La función para
+        //realizar esta consulta está en /src/Repository/NoticiasRepository.php
+        //Esta página se genera automaticamente para dar soporte a estas consultas
+        $em=$this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Noticia::class);
+
+        $noticia= $repository->verNoticia($seccion,$fecha,$equipo,$titular);
+        return $this->render('noticias/noticia.html.twig', [
+            //pasaramos el titular para quitar los simbolos -
+            'titulo' => ucwords(str_replace('-', ' ', $titular)),
+            'noticias'=>$noticia[0]]);
     }
     
     /**
