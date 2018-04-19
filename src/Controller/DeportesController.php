@@ -9,8 +9,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Doctrine\DBAL\Schema\Constraint;
+
 use App\Entity\Noticia;
 use App\Form\login;
+use App\Entity\User;
+use App\Form\Form_UserType;
 
 
 class DeportesController extends Controller {
@@ -22,23 +26,6 @@ class DeportesController extends Controller {
        $error='';
        return $this->redirectToRoute('login_seguro');
     }
-    
-    /**
-     * @Route("/deportes/nuevousuario", name="usuariobd")
-     */
-    public function nuevoUsuarioBd() {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = new Usuario();
-        $usuario->setEmail("juan@imaginaformacion.com");
-        $usuario->setUsername("juan");
-        $password = $this->get('security.password_encoder')
-                ->encodePassword($usuario, "imagina");
-        $usuario->setPassword($password);
-        $em->persist($usuario);
-        $em->flush();
-        return new Response("Usuario guardado!");
-    }
-    
     
     /**
      * @Route("/deportes/login", name="login_seguro" )
@@ -53,13 +40,63 @@ class DeportesController extends Controller {
 
         return $this->render('Security/login.html.twig', array(
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error'         => $error
         ));
     }
     
+     /**
+     * @Route("/deportes/new", name="nuevo_usuario")
+     */
+    public function newAction() {
+
+        $oUusario = new User();
+        $form = $this->createCreateForm($oUusario);
+        $error ="";
+        return $this->render('add.html.twig', array('form' => $form->createView(),'error'=> $error));
+    }
 
     /**
-     * @Route("/deportes/cargarBd", name="noticia")
+     * @Route("/deportes/crear", name="crear_usuario")
+     * 
+     * @param \App\Controller\Request $request
+     * @return User
+     */
+    public function crearAction(Request $request) {
+        
+        $oUsuario = new User();
+        $form = $this->createCreateForm($oUsuario);
+        $form->handleRequest($request);
+        $error="";
+
+        if ( $form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('password')->getData();    
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($oUsuario, $password);
+            $oUsuario->setPassword($encoded);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($oUsuario);
+            $em->flush();
+            $SuccessMessage = 'El usuario ha sido creado correctamente';
+            $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
+            return $this->redirectToRoute('crear_usuario');          
+        }
+        return $this->render('add.html.twig', array('form' => $form->createView(), 'error'=> $error));
+     
+    }
+    
+    /**
+     * 
+     * @param User $oUsuario
+     * @return $form
+     */
+    private function createCreateForm(User $oUsuario) {
+        $form = $this->createForm(Form_UserType::class, $oUsuario,
+                array('action' => $this->generateUrl('crear_usuario'), 'method' => 'POST'));
+        return $form;
+    }
+    
+    /**
+     * @Route("/deportes/cargarBd", name="add_usuario")
      */
     public function cargarBd() {
         
@@ -138,7 +175,7 @@ class DeportesController extends Controller {
         return $this->render('noticias/listar.html.twig', [
                     // La función str_replace elimina los símbolos - de los títulos
                     'titulo' => ucwords(str_replace('-', ' ', $seccion)),
-                    'noticias' => $noticias]);
+                    'noticias' => $noticias, 'error' => $error]);
         } 
     }
   
@@ -174,7 +211,7 @@ class DeportesController extends Controller {
         return $this->render('noticias/noticia.html.twig', [
                     // Parseamos el titular para quitar los símbolos -
                     'titulo' => ucwords(str_replace('-', ' ', $titular)),
-                    'noticias' => $noticia]);
+                    'noticias' => $noticia,'error' => $error]);
     }
 
     /**
