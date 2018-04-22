@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
-<title>{% block title %}​Inicio{% endblock %}​</title>
+<title>{% block title %}{{'​Inicio'|trans}}{% endblock %}​</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {% block stylesheets %}
@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a style="margin-left: 75px;" class="navbar-brand space-brand" href="http://localhost:8000/deportes">Mi página de deportes</a>
+        <a style="margin-left: 75px;" class="navbar-brand space-brand" href="http://localhost:8000/deportes"> {{'Mi pagina de deportes'| trans}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -22,15 +22,14 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a style="color: #fff; margin-top: 25%;" class="nav-link" href="http://localhost:8000/deportes"> Inicio</a>
+                    <a style="color: #fff; margin-top: 25%;" class="nav-link" href="http://localhost:8000/deportes"> {{'Inicio'| trans}}</a>
                 </li>
                 ​<li class="nav-item">
-                    ​<a style="color: #fff; margin-top: -16%;"
-                        class="nav-link" href="http://localhost:8000/deportes/futbol"> ​Futbol​</a>
+                    ​<a style="color: #fff; margin-top: -16%;" class="nav-link" href="http://localhost:8000/deportes/futbol"> {{'Futbol' |trans}}</a>
                 </li>
                 ​<li class="nav-item">
                     ​<a style="color: #fff; margin-top: -16%;" class="nav-link"
-                        href="http://localhost:8000/deportes/tenis"> ​Tenis​</a>
+                        href="http://localhost:8000/deportes/tenis"> {{'Tenis' | trans}}</a>
                 </li>
                 ​<li class="nav-item">
                     ​<a style="color: #fff; margin-top: -16%;" class="nav-link"
@@ -38,9 +37,9 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Buscar"
-                       aria-label="Buscar">
-                <button class="btn btn-info my-2 my-sm-0" type="submit">Buscar</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="{{'Buscar' | trans }}"
+                       aria-label="{{'Buscar' | trans }}">
+                <button class="btn btn-info my-2 my-sm-0" type="submit">{{'Buscar' | trans }}</button>
             </form>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown" style="margin-right: 75px;">
@@ -55,21 +54,21 @@
                         {{ app.user.username }}
                         </a>
                        {% endif %}
-                       <a class="dropdown-item" href="#">Perfil</a>
-                       <a class="dropdown-item" href="#">Crear Noticia</a>
+                       <a class="dropdown-item" href="#">{{'Perfil'| trans}}</a>
+                       <a class="dropdown-item" href="#">{{'Crear Noticia'| trans}}</a>
 
                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_ADMIN') %}
                             <a class="dropdown-item" href="{{ path('nuevo_usuario')}}">
-                                Crear Usuario
+                                {{'Crear Usuario'| trans}}
                             </a>
                             {% endif %}    
                             <a class="dropdown-item" href="/deportes/logout">
-                                Logout
+                                {{'Logout'| trans}}
                             </a>
                        {% else %}
                             <a class="dropdown-item" href="/deportes/login">
-                                Login
+                                {{'Login'| trans}}
                             </a>
                        {% endif %}                 
                     </div>
@@ -77,7 +76,7 @@
             </ul>               
             
         </div>
-    </nav>    
+    </nav> 
                         
         {% if error == '' %}
             <div>
@@ -89,15 +88,15 @@
             </div>
         {% else %}    
             <div class="container text-center">
-                  <h1 class="text-muted">​Mi página de deportes​</h1>
+                  <h1 class="text-muted">​{{'Mi pagina de deportes' | trans}}​</h1>
                   ​<h3 class="text-muted">​{{ error }}</h3>
             </div>
         {% endif %}    
         
     <footer class="footer">
         ​<div class="container text-center">
-              ​<span class="text-muted">​Mi página de deportes ​
-                  <i class="fa fa-heart" style="color: red;"></i>​ realizada con 
+              ​<span class="text-muted">​{{'Mi pagina de deportes' | trans}}​
+                  <i class="fa fa-heart" style="color: red;"></i>​ {{'realizada con' | trans}} 
                   Symfony4 ​<a href="#">​Imagina Formación​</a>
               </span>
         </div>

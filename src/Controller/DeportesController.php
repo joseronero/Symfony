@@ -15,16 +15,26 @@ use App\Entity\Noticia;
 use App\Form\login;
 use App\Entity\User;
 use App\Form\Form_UserType;
-
+use App\Service\Traducciones\traduccionesService;
 
 class DeportesController extends Controller {
   
     /**
      * @Route("/deportes/inicio", name="inicio")
      */
-    public function inicio() {
+    public function inicio(Request $request) {
        $error='';
+       $locale = $request->getLocale ();
        return $this->redirectToRoute('login_seguro');
+    }
+    
+    /**
+     * @Route("/deportes/idioma", name="idioma")
+     */
+    public function idiomaAction(Request $request){
+        $locale = $request->getLocale();
+     
+        return new Response('idioma: '. $locale );
     }
     
     /**
@@ -156,7 +166,8 @@ class DeportesController extends Controller {
      * requirements={"pagina"="\d+"},
      * defaults={"seccion":"tenis"})
      */
-    public function lista($seccion, $pagina=1) {
+    public function lista(Request $request,$seccion, $pagina=1) {
+        $locale= $request->getLocale();
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Noticia::class);
         //Buscamos las noticias de una sección
@@ -164,7 +175,7 @@ class DeportesController extends Controller {
         // Si la sección no existe saltará una excepción
         $error='';
         if (!$noticiaSec) {
-            $error= 'Error 404 Página no encontrada';
+            $error= $this->get('translator')->trans('Error 404 Pagina no encontrada');
             return $this->render('base.html.twig', [
                     'error' => $error]);
         }
@@ -204,7 +215,7 @@ class DeportesController extends Controller {
             // errores generica de symfony
             //throw $this->createNotFoundException('Error 404 este deporte no
             //                                      está en nuestra Base de Datos');
-            $error= 'Error 404 Página no encontrada';
+            $error= $this->get('translator')->trans('Error 404 Pagina no encontrada');
             return $this->render('base.html.twig', [
                     'error' => $error]);
         }

@@ -9,43 +9,43 @@
      <div class="col-md-6">
         <fieldset style="width:50%">
             <legend> Datos Nuevo Usuario </legend></br>  
-         {{ form_start(form,{'attr': {'role':'form'} })}}
+         {{ form_start(form,{'attr': {'novalidate': 'novalidate','role':'form'} })}}
          <div class="form-group">
-             {{ form_label(form.username) }}
+             <label> Usuario </label>
              {{ form_widget(form.username,{'attr': {'class' : 'form-control','placeholder' : 'usuario'}} ) }}
              <span class="text-danger">{{ form_errors(form.username) }}</span>
-         </div></br>
+         </div>
          <div class="form-group">
-             {{ form_label(form.firstName) }}
+             <label> Nombre </label>
              {{ form_widget(form.firstName,{'attr': {'class' : 'form-control','placeholder' : 'nombre'}} ) }}
              <span class="text-danger">{{ form_errors(form.firstName) }}</span>
-         </div></br>
+         </div>
          <div class="form-group">
-             {{ form_label(form.lastName) }}
-             {{ form_widget(form.lastName,{'attr': {'class' : 'form-control','placeholder' : 'apellido'}} ) }}
+             <label> Apellidos </label>
+             {{ form_widget(form.lastName,{'attr': {'class' : 'form-control','placeholder' : 'apellidos'}} ) }}
              <span class="text-danger">{{ form_errors(form.lastName) }}</span>
-         </div></br>
+         </div>
          <div class="form-group">
              {{ form_label(form.email) }}
              {{ form_widget(form.email,{'attr': {'class' : 'form-control','placeholder' : 'email'}} ) }}
              <span class="text-danger">{{ form_errors(form.email) }}</span>
-         </div></br>
+         </div>
          <div class="form-group">
              {{ form_label(form.password) }}
              {{ form_widget(form.password,{'attr': {'class' : 'form-control','placeholder' : 'password'}} ) }}
              <span class="text-danger">{{form_errors(form.password)}}</span>
-         </div></br>
+         </div>
          <div class="form-group">
-             {{ form_label(form.role) }}
+            <label> Rol </label>
              {{ form_widget(form.role,{'attr': {'class' : 'form-control'}} ) }}
              <span class="text-danger">{{ form_errors(form.role) }}</span>
-         </div></br>
+         </div>
          <div class="checkbox">
              <label>
-             {{ form_widget(form.IsActive) }}Activo
+             {{ form_widget(form.IsActive) }} Activo
              <span class="text-danger">{{form_errors(form.IsActive)}}</span>
              </label>
-         </div></br>
+         </div>
        </fieldset>
              <p>
                {{form_widget(form.guardar, {'label': 'Crear usuario', 'attr': {'class' : 'btn btn-success'}} ) }}              

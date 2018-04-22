@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Perfil</source>
+                <target>Profile</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Crear Noticia</source>
+                <target>New Notice</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Login</source>
+                <target>User Login</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Logout</source>
+                <target>User Logout</target>
+            </trans-unit> 
+            <trans-unit id="5">
+                <source>Crear Usuario</source>
+                <target>New User</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Mi pagina de deportes</source>
+                <target>My sports web</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Inicio</source>
+                <target>Start</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Buscar</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Futbol</source>
+                <target>Football</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Tenis</source>
+                <target>Tennis</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>realizada con</source>
+                <target>made with</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Error 404 Pagina no encontrada</source>
+                <target>Error 404 Page not found</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>No se han encontrado noticias</source>
+                <target>No news found</target>
+            </trans-unit>
+            
+        </body>
+    </file>
+</xliff>
