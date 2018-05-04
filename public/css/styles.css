@@ -8,3 +8,6 @@ and open the template in the editor.
     Author     : Joseron
 */
 
+.ui.menu .item img.logo {
+    margin-right: 1.5em;
+}

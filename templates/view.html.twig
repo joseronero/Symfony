@@ -1,0 +1,63 @@
+{% extends 'layaout.html.twig' %}
+{% block body %}
+ {{parent()}}     
+<div class="ui segment" style="width: 40%; margin-left: auto; margin-right: auto; margin-top: 8%;
+                               background: gainsboro;">
+    <h3 class="ui dividing header">{{user.firstName}} {{user.lastName}}</h3> 
+    <div class="ui middle aligned divided list">
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Username</div>
+              <div class="description" style="margin-top:1%;">{{user.username}}</div>
+            </div>
+        </div> 
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Nombre</div>
+              <div class="description" style="margin-top:1%;">{{user.firstName}}</div>
+            </div>
+        </div>        
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Apellidos</div>
+              <div class="description" style="margin-top:1%;">{{user.lastName}}</div>
+            </div>
+        </div>        
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Email</div>
+              <div class="description" style="margin-top:1%;">{{user.email}}</div>
+            </div>
+        </div>     
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Rol</div>
+              <div class="description" style="margin-top:1%;">
+                {% if (user.role =='ROLE_ADMIN')%} 
+                   <span> Administrador </span>
+                {%else%}    
+                   <span> Administrador </span>
+                {%endif%}
+              </div>
+            </div>
+        </div>    
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Activo</div>
+              <div class="description" style="margin-top:1%;">
+                {% if (user.isActive =='1')%} 
+                   <span>Si</span>
+                {%else%}    
+                   <span>No</span>
+                {%endif%}
+              </div>
+            </div>
+        </div>    
+        <div class="actions" style="margin-top:3%;">
+            <a href="{{ path('_editar_usuario', {id: user.id}) }}" class="ui primary button">Editar usuario</a>
+            {{include ('form.html.twig', {form: borrar_form})}}      
+        </div>   
+    </div>    
+</div>    
+          
+{%endblock%}

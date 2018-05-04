@@ -1,11 +1,10 @@
 {% extends 'layaout.html.twig' %}
 
 {% block body %}
-{{parent()}}     
-
-<div class="ui segment" style="width: 40%; margin-left: auto; margin-right: auto; margin-top: 10%;
+{{parent()}}
+<div class="ui segment" style="width: 40%; margin-left: auto; margin-right: auto; margin-top: 8%;
                                background: gainsboro;">
-    <h3 class="ui dividing header" style="text-align: center; ">Nuevo Usuario</h3>   
+    <h3 class="ui dividing header" style="text-align: center; ">Editar Usuario</h3>   
     {{ form_start(form,{'attr': {'novalidate': 'novalidate','role':'form'} })}}
     <div class="ui form">      
         <div class="field">
@@ -45,7 +44,7 @@
         {{ form_errors(form.IsActive) }}
         <div class="ui dividing header"> </div>
         <div style="margin-top: 3%">
-         {{form_widget(form.guardar, {'label': 'Crear usuario', 'attr': {'class' : 'ui primary button'}} ) }}
+         {{form_widget(form.guardar, {'label': 'Editar usuario', 'attr': {'class' : 'ui primary button'}} ) }}
        </div>
        
     </div>        

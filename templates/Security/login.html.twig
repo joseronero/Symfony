@@ -1,30 +1,27 @@
-
+{%extends 'layaout.html.twig'%}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>Login!</h1>
-                {% if error %}
-                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
-
-                <form action="{{ path('login_seguro') }}" method="post">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
-
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="_password" />
-
-                    {#
-                        If you want to control the URL the user
-                        is redirected to on success (more details below)
-
-                    #}
-
-                    <button type="submit">Login</button>
-                </form>
-            </div>
-        </div>
+    {{parent()}} 
+    <div class="ui inverted segment" style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 10%;">
+        <h1 class="ui header" style="text-align: center;">Autenticación de Usuario</h1>   
+        <form name="login" action="{{ path('_login_seguro') }}" method="post"> 
+            <div class="ui inverted form">      
+                <div class="two fields">
+                    {% if error %}
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}       
+                    <div class="field">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}">
+                    </div>
+                    <div class="field">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="_password">
+                    </div>
+                    <button class="ui submit button" style="margin: 22px .25em 0 0 !important;">Login</button>
+                </div>
+            </div>  
+        </form>            
     </div>
+                                                                       
 {% endblock %}

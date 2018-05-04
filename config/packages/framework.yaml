@@ -1,7 +1,7 @@
 framework:
     form: true
     secret: '%env(APP_SECRET)%'
-    #default_locale: en
+    #default_locale: es
     #csrf_protection: ~
     #http_method_override: true
 
@@ -9,7 +9,7 @@ framework:
     # Remove or comment this section to explicitly disable session support.
     session:
         handler_id: ~
-
+  
     #esi: ~
     #fragments: ~
     php_errors:

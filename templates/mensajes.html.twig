@@ -1,38 +1,29 @@
+
 {# Mensaje satisfactorio #}
  {% if app.session.flashbag.has('mensaje') %}
 
-    <div class="alert alert-success" role="alert">
-
-        {% for stringMesage in app.session.flashbag.get( 'mensaje' ) %}
-
-            <div class="container">
-
+     <div class="ui success message" role="alert" style="margin-top:4%;">
+       {% for stringMesage in app.session.flashbag.get( 'mensaje' ) %} 
+          <div class="header">
                 {{ stringMesage }}
-
-            </div>
-
+          </div>
         {% endfor %}
-
-    </div>
+     </div>
+     
 {% endif %}
 
 
  {# Mensaje error #}
  {% if app.session.flashbag.has('error') %}
-
-    <div class="error alert-danger" role="alert">
-
-        {% for stringMesage in app.session.flashbag.get( 'error' ) %}
-
-            <div class="container">
-
+   
+     <div class="ui negative message" role="alert" style="margin-top:4%;">
+       {% for stringMesage in app.session.flashbag.get( 'mensaje' ) %} 
+          <div class="header">
                 {{ stringMesage }}
-
-            </div>
-
+          </div>
         {% endfor %}
-
-    </div>
+     </div>
+        
 {% endif %}
 
 

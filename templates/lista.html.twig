@@ -1,0 +1,52 @@
+
+{% extends 'layaout.html.twig' %}
+{% block body %}
+ {{parent()}}     
+<div class="ui segment" style="margin-left: auto; margin-right: auto; margin-top:5%;">
+
+    <table class= "ui collapsing  celled table" border="1" style="margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr>
+                <th>Username</th> 
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Activo</th>
+                <th>Acci&oacute;n</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in oUsuarios %}
+                <tr data-id="{{user.id}}">
+                    <td>{{user.username}}</td>
+                    <td>{{user.firstName}} </td>
+                    <td>{{user.lastName}} </td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        {% if user.role == 'ROLE_ADMIN' %}
+                            <strong>Administrador</strong>
+                        {% elseif user.role == 'ROLE_USER' %}
+                            <strong>Usuario</strong>
+                        {% endif %}                  
+                    </td>
+                    <td>
+                        {% if user.isActive == '1' %}
+                            <strong>Si</strong>
+                        {% elseif user.isActive == '0' %}
+                            <strong>No</strong>
+                        {% endif %}                   
+                    </td>
+                   
+                    <td class="actions">
+                        <a href="{{ path('_ver_usuario', {id: user.id}) }}" class="ui green basic button">Ver</a>
+                        <a href="{{ path('_editar_usuario', {id: user.id}) }}" class="ui orange basic button">Editar</a>
+                        <a href="#" class="ui red basic button">Borrar</a>             
+                    </td>                     
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>  
+          
+{%endblock%}

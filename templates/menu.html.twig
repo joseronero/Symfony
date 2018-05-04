@@ -1,0 +1,60 @@
+
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+        <div class="header item">
+            <img class="logo" src="{{ asset('images/logo.png') }}"> Asignaciones
+        </div>    
+        <a href="{{ path('_inicio') }}" class="item">Inicio</a>
+         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+              {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}  
+                    <div class="ui simple dropdown item">
+                        Usuarios <i class="dropdown icon"></i>
+                        <div class="menu">                         
+                            <a class="item" href="{{ path('_lista_usuarios') }}">Listado de usuarios</a>
+              {% endif %}
+              {% if is_granted('ROLE_ADMIN') %}
+                            <a class="item" href="#">Nuevo usuario</a>
+              {%endif%}                          
+                        </div>
+                    </div>
+        {% endif %}
+        <div class="ui right simple dropdown item">
+            <img class="logo" src="{{ asset('images/perfil.png') }}"><i class="dropdown icon"></i>
+            <div class="menu">
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}   
+                    <a class="item" href="#" >
+                        {{ app.user.username }}
+                    </a>                                 
+                {%endif%} 
+
+                <a class="item" href="#">Perfil</a>
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="item" href="{{ path('_nuevo_usuario') }}">
+                            Crear usuario
+                        </a>
+                        <a class="item" href="#">
+                            Crear tarea
+                        </a>               
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                        <a class="item" href="#">
+                            Ver tareas
+                        </a>                         
+                        <a class="item" href="/logout">
+                            Logout
+                        </a>
+                    {%endif%}   
+                {% else %}
+                    <a class="item" href="{{ path('_login_seguro') }}">
+                        Login
+                    </a>
+                {% endif %}                  
+            </div>
+        </div>  
+    </div>     
+</div>   
+
+       
