@@ -12,6 +12,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormError;
 use Doctrine\DBAL\Schema\Constraint;
+use Knp\Component\Pager\PaginatorInterface;
+use FOS\ElasticaBundle\FOSElasticaBundle;
 
 use App\Form\login;
 use App\Entity\User;
@@ -25,6 +27,13 @@ class TareasController extends Controller {
      */
     public function inicio (Request $request) {
        return $this->render('layaout.html.twig');
+    }
+    
+     /**
+     * @Route("/tareas/home", name="_home")
+     */
+    public function home (Request $request) {
+       return $this->render('home.html.twig');
     }
      
     /**
@@ -109,12 +118,22 @@ class TareasController extends Controller {
      /**
      * @Route("/tareas/listausuarios", name="_lista_usuarios" )
      */ 
-    public function listarUsuarios() {
+    public function listarUsuarios(Request $request) {
+        $searchQuery= $request->request->get('query');
+        if (!empty($searchQuery)) {
+            $finder = $this->container->get('fos_elastica.finder.app.user');
+            $oUsuarios = $finder->createPaginatorAdapter($searchQuery);
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $dql = "SELECT u FROM App\Entity\User u";
+            $oUsuarios = $em->createQuery($dql);
+        }
 
-        $em = $this->getDoctrine()->getManager();
-
-        $oUsuarios = $em->getRepository(User::class)->findAll();
-        return $this->render('lista.html.twig', array('oUsuarios' => $oUsuarios));
+        $paginator= $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                           $oUsuarios, $request->query->getInt('page', 1), 8);
+               
+        return $this->render('lista.html.twig', array('pagination' => $pagination));
     }
     
      /**
@@ -231,10 +250,27 @@ class TareasController extends Controller {
             $em->flush();
             $SuccessMessage = 'El usuario ha sido borrado correctamente';
             $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
-            return $this->redirectToRoute('_lista_usuarios');          
+            return $this->redirectToRoute('_lista_usuarios'); 
+  
         }
         return $this->render('lista.html.twig', array('form' => $form->createView()));
     }
-   
     
+    /**
+     *  @Route("/tareas/borraruserlistado/{id}", name="_borrar_usuario_listado")
+     * @param \App\Controller\Request $request
+     */
+    public function borrarUserListado(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $oUsuario = $em->getRepository(User::class)->find($id);
+        if (!$oUsuario) {
+            throw $this->createNotFoundException('Usuario no encontrado.');
+        }
+        $em->remove($oUsuario);
+        $em->flush();
+        $SuccessMessage = 'El usuario ha sido borrado correctamente';
+        $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
+        return $this->redirectToRoute('_lista_usuarios');
+    }
+
 }

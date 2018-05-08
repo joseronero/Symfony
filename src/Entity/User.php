@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 
 
@@ -21,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("username")
  *   
  */
-class User implements UserInterface,  \Serializable
+class User implements AdvancedUserInterface,  \Serializable
 {
     /**
      * @var integer
@@ -102,6 +103,10 @@ class User implements UserInterface,  \Serializable
      */
     private $updatedAt;
 
+   
+    public function __construct() {
+        $this->isActive = true;
+    }
 
     /**
      * Get id
@@ -351,7 +356,7 @@ class User implements UserInterface,  \Serializable
      */
     public function getSalt()
     {
-       
+       return null;
     }
     
     /**
@@ -368,6 +373,7 @@ class User implements UserInterface,  \Serializable
         $this->id,
         $this->username,
         $this->password,
+        $this->isActive,
         // see section on salt below
         // $this->salt,
         ));
@@ -379,10 +385,25 @@ class User implements UserInterface,  \Serializable
         $this->id,
         $this->username,
         $this->password,
+        $this->isActive,        
         // see section on salt below
         // $this->salt
         ) = unserialize($serialized);
     }
    
-
+    public function isAccountNonExpired() {
+        return true;
+    }
+    
+    public function isAccountNonLocked() {
+        return true;
+    }
+    
+    public function isCredentialsNonExpired() {
+        return true;        
+    }
+    
+    public function isEnabled() {
+        return $this->isActive;
+    }
 }

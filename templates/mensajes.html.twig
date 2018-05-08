@@ -17,7 +17,7 @@
  {% if app.session.flashbag.has('error') %}
    
      <div class="ui negative message" role="alert" style="margin-top:4%;">
-       {% for stringMesage in app.session.flashbag.get( 'mensaje' ) %} 
+       {% for stringMesage in app.session.flashbag.get( 'error' ) %} 
           <div class="header">
                 {{ stringMesage }}
           </div>
@@ -25,7 +25,5 @@
      </div>
         
 {% endif %}
-
-
 
 

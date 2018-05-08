@@ -18,11 +18,11 @@ security:
             form_login:
                 login_path: /tareas/login
                 check_path: /tareas/login
-                default_target_path: /tareas/inicio
+                default_target_path: /tareas/home
                 always_use_default_target_path: true
             logout:
                 path:   /logout
-                target: /
+                target: /tareas/home
 
 
             # activate different ways to authenticate
