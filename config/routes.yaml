@@ -1,6 +1,6 @@
 index:
     path: /
-    controller: App\Controller\TareasController::home
+    controller: App\Controller\UserController::home
     
 logout:
     path: /logout

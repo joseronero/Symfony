@@ -16,13 +16,13 @@ security:
             http_basic: ~
             provider: our_db_provider           
             form_login:
-                login_path: /tareas/login
-                check_path: /tareas/login
-                default_target_path: /tareas/home
+                login_path: /user/login
+                check_path: /user/login
+                default_target_path: /user/home
                 always_use_default_target_path: true
             logout:
                 path:   /logout
-                target: /tareas/home
+                target: /user/home
 
 
             # activate different ways to authenticate

@@ -348,4 +348,8 @@ class User implements AdvancedUserInterface,  \Serializable
 
         return $this;
     }
+    
+    public function getFullName(){
+        return $this->firstName ." ". $this->lastName;
+    }
 }
