@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
@@ -24,6 +24,12 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface,  \Serializable
 {
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="user")
+     */
+    protected $tasks;
+
     /**
      * @var integer
      *
@@ -106,220 +112,117 @@ class User implements AdvancedUserInterface,  \Serializable
    
     public function __construct() {
         $this->isActive = true;
+        $this->tasks = new ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return User
-     */
-    public function setUsername($username)
+    public function setUsername(string $username)
     {
         $this->username = $username;
 
         return $this;
     }
 
-    /**
-     * Get username
-     *
-     * @return string 
-     */
     public function getUsername()
     {
         return $this->username;
     }
 
-    /**
-     * Set firstName
-     *
-     * @param string $firstName
-     * @return User
-     */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName)
     {
         $this->firstName = $firstName;
 
         return $this;
     }
 
-    /**
-     * Get firstName
-     *
-     * @return string 
-     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return User
-     */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName)
     {
         $this->lastName = $lastName;
 
         return $this;
     }
 
-    /**
-     * Get lastName
-     *
-     * @return string 
-     */
     public function getLastName()
     {
         return $this->lastName;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string 
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Users
-     */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
         return $this;
     }
 
-    /**
-     * Get password
-     *
-     * @return string 
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * Set role
-     *
-     * @param string $role
-     * @return User
-     */
-    public function setRole($role)
+    public function setRole(string $role)
     {
         $this->role = $role;
 
         return $this;
     }
 
-    /**
-     * Get role
-     *
-     * @return string 
-     */
     public function getRole()
     {
         return $this->role;
     }
 
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return User
-     */
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive)
     {
         $this->isActive = $isActive;
 
         return $this;
     }
 
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
     public function getIsActive()
     {
         return $this->isActive;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return User
-     */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return User
-     */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTimeInterface $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime 
-     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -342,7 +245,23 @@ class User implements AdvancedUserInterface,  \Serializable
     {
         $this->updatedAt = new \DateTime();
     }
-    
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * 
+     * @param type $tasks
+     */
+    function setTasks($tasks) {
+        $this->tasks = $tasks;
+    }
+
     /**
      * 
      */
@@ -405,5 +324,28 @@ class User implements AdvancedUserInterface,  \Serializable
     
     public function isEnabled() {
         return $this->isActive;
+    }
+
+    public function addTask(Task $task)
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task)
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+            // set the owning side to null (unless already changed)
+            if ($task->getUser() === $this) {
+                $task->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
