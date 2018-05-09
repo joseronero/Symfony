@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Clase Tareas de Usuario
  *
  * @ORM\Table(name="tasks")
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Task {
     
@@ -32,6 +34,7 @@ class Task {
      * @var string
      *
      * @ORM\Column(name="titulo", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $titulo;
 
@@ -39,6 +42,7 @@ class Task {
      * @var text
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Assert\NotBlank()
      */
     private $descripcion;
 
@@ -85,11 +89,13 @@ class Task {
         return $this->estado;
     }
 
+      
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-
+     
+    
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -146,5 +152,21 @@ class Task {
         return $this;
     }
 
-
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+        
+    }      
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
+    }
 }

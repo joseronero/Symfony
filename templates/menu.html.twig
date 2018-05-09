@@ -34,13 +34,13 @@
                         <a class="item" href="{{ path('_nuevo_usuario') }}">
                             Crear usuario
                         </a>
-                        <a class="item" href="#">
+                        <a class="item" href="{{ path('_nueva_tarea')}}">
                             Crear tarea
                         </a>               
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                        <a class="item" href="#">
-                            Ver tareas
+                        <a class="item" href="{{ path('_lista_tareas') }}">
+                            Listado de tareas
                         </a>                         
                         <a class="item" href="/logout">
                             Logout

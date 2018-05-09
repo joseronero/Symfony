@@ -1,0 +1,32 @@
+{% extends 'layaout.html.twig' %}
+
+{% block body %}
+{{parent()}}     
+
+<div class="ui segment" style="width: 40%; margin-left: auto; margin-right: auto; margin-top: 8%;
+                               background: gainsboro;">
+    <h3 class="ui dividing header" style="text-align: center; ">Nueva Tarea</h3>   
+    {{ form_start(form,{'attr': {'role':'form'} })}}
+    <div class="ui form">      
+        <div class="field">
+            <label> T&iacutetulo </label>
+            {{ form_widget(form.titulo,{'attr': {'class' : 'form-control','placeholder' : 'Título de la tarea'}} ) }}
+        </div>
+        <div class="field">
+            <label> Usuario </label>
+            {{ form_widget(form.user,{'attr': {'class' : 'form-control'}} ) }}
+        </div>
+        <div class="field">
+            <label> Descripci&oacuten </label>
+            {{ form_widget(form.descripcion,{'attr': {'class' : 'form-control','placeholder' : 'Descripción de la tarea'}} ) }}
+        </div> 
+        <div class="ui dividing header"> </div>
+        <div style="margin-top: 3%">
+         {{form_widget(form.guardar, {'label': 'Guardar tarea', 'attr': {'class' : 'ui primary button'}} ) }}
+       </div>
+       
+    </div>        
+    {{form_end(form)}}    
+</div>   
+            
+{%endblock%}
