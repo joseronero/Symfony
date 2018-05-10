@@ -1,0 +1,55 @@
+{% extends 'layaout.html.twig' %}
+{% block body %}
+ {{parent()}}     
+<div class="ui segment" style="width: 40%; margin-left: auto; margin-right: auto; margin-top: 8%;
+                               background: gainsboro;">
+    <h3 class="ui dividing header">{{task.user.fullName}}</h3> 
+    <div class="ui middle aligned divided list">
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">T&iacutetulo</div>
+              <div class="description" style="margin-top:1%;">{{task.titulo}}</div>
+            </div>
+        </div> 
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Descripci&oacuten</div>
+              <div class="description" style="margin-top:1%;">{{task.descripcion}}</div>
+            </div>
+        </div> 
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Fecha de creaci&oacuten</div>
+              <div class="description" style="margin-top:1%;">{{task.createdAt|date('d-m-Y H:i')}}</div>
+            </div>
+        </div> 
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Fecha de modificaci&oacuten</div>
+              <div class="description" style="margin-top:1%;">{{task.updatedAt|date('d-m-Y H:i')}}</div>
+            </div>
+        </div>    
+        <div class="item" style="margin-top:2%;"> 
+            <div class="content">
+              <div class="header">Estado</div>
+              <div class="description" style="margin-top:1%;">
+                {% if (task.estado =='1')%} 
+                   <span class="contarea"><i class="check circle outline icon"></i></span>
+                {%else%}    
+                   <span class="sintarea"><i class="clock outline icon"></i></span>
+                {%endif%}
+              </div>
+            </div>
+        </div> 
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+       {% if is_granted('ROLE_ADMIN')%}           
+        <div class="actions" style="margin-top:3%;">
+            <a href="{{ path('_editar_tarea', {id: task.id}) }}" class="ui primary button">Editar Tarea</a>
+            {{include ('formTarea.html.twig', {form: borrar_form})}}      
+        </div>   
+        {%endif%}
+    {%endif%}    
+    </div>    
+</div>    
+          
+{%endblock%}{# empty Twig template #}

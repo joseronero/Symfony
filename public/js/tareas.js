@@ -24,3 +24,6 @@ $('a[id^="enlace_"]').click(function (event){
       }).modal('show');
     
     });
+    
+
+    

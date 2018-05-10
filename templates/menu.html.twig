@@ -6,17 +6,23 @@
         </div>    
         <a href="{{ path('_home') }}" class="item">Inicio</a>
          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-              {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}  
+              {% if is_granted('ROLE_ADMIN')%}  
                     <div class="ui simple dropdown item">
                         Usuarios <i class="dropdown icon"></i>
                         <div class="menu">                         
-                            <a class="item" href="#">Listado de tareas</a>
-              {% endif %}
-              {% if is_granted('ROLE_ADMIN') %}
                             <a class="item" href="{{ path('_lista_usuarios') }}">Listado de usuarios</a>
-              {%endif%}                          
                         </div>
                     </div>
+                    <div class="ui simple dropdown item">
+                        Tareas <i class="dropdown icon"></i>
+                        <div class="menu">                         
+                            <a class="item" href="{{ path('_lista_tareas') }}">Listado de tareas</a>
+                        </div>
+                    </div>    
+              {% endif %}
+              {% if is_granted('ROLE_USER') %}
+                        <a class="item" href="{{ path('_mis_tareas') }}">Mis tareas</a>
+              {%endif%}                          
         {% endif %}
         <div class="ui right simple dropdown item">
             <img class="logo" src="{{ asset('images/perfil.png') }}"><i class="dropdown icon"></i>
@@ -38,17 +44,14 @@
                             Crear tarea
                         </a>               
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                        <a class="item" href="{{ path('_lista_tareas') }}">
-                            Listado de tareas
-                        </a>                         
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}                         
                         <a class="item" href="/logout">
-                            Logout
+                            Salir
                         </a>
                     {%endif%}   
                 {% else %}
                     <a class="item" href="{{ path('_login_seguro') }}">
-                        Login
+                        Ingresar
                     </a>
                 {% endif %}                  
             </div>

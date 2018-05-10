@@ -11,3 +11,11 @@ and open the template in the editor.
 .ui.menu .item img.logo {
     margin-right: 1.5em;
 }
+
+span.contarea {
+    color: green;
+}
+
+span.sintarea {
+    color: red;
+}

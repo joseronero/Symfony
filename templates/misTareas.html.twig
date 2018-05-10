@@ -17,7 +17,7 @@
                 <th>{{knp_pagination_sortable(pagination, 'Fecha','t.createdAt')}}</th> 
                 <th>{{'Usuario'}}</th> 
                 <th>{{knp_pagination_sortable(pagination, 'Estado','t.estado')}}</th> 
-                <th>Acci&oacute;n</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -28,13 +28,14 @@
                     <td>{{task.user.fullName}} </td>
                     <td>
                         {% if task.estado == '1' %}
-                          <span class="contarea"><i class="check circle outline icon"></i></span>
+                            <span class="contarea"><i class="check circle outline icon"></i></span>
                         {% elseif task.estado == '0' %}
-                           <span class="sintarea"><i class="clock outline icon"></i></span>
+                             <span class="sintarea"><i class="clock outline icon"></i></span>
                         {% endif %}                   
                     </td>     
                     <td class="actions">
                         <a href="{{ path('_ver_tarea', {id: task.id}) }}" class="ui green basic button">Ver</a>
+                         <a href="#" class="ui blue basic button">Procesar</a> 
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         {% if is_granted('ROLE_ADMIN')%}      
                         <a href="{{ path('_editar_tarea', {id: task.id}) }}" class="ui orange basic button">Editar</a>    
@@ -51,23 +52,5 @@
         {{knp_pagination_render(pagination)}}
     </div>    
 </div>
-
-<div class="ui small modal">
-  <div class="ui icon header">
-    <i class="exclamation circle icon"></i>
-    Atención
-  </div>
-  <div class="content">
-    <p>Va a borrar la tarea, ¿Estás seguro?</p>
-  </div>
-  <div class="actions">
-    <div class="ui black deny button">No</div>  
-    <div class="ui positive button">
-    Si
-    <i class="checkmark icon"></i>
-    </div>   
-  </div>
-</div>
-        
           
 {%endblock%}{# empty Twig template #}

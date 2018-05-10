@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use FOS\ElasticaBundle\FOSElasticaBundle;
@@ -73,5 +74,134 @@ class TareasController extends Controller
         }
         
         return $this->render('addTarea.html.twig', array('form' => $form->createView()));
+    }
+    
+    /**
+     * @Route("/tareas/vertarea/{id}", name="_ver_tarea" )
+     */
+    public function verTarea($id){
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository(Task::class)->find($id);
+        if(!$task){
+            throw $this->createNotFoundException('Tarea no encontrada.');
+        }
+        $borrarForm=$this->createDeleteForm($task);
+        return $this->render('viewTarea.html.twig', array('task' => $task, 'borrar_form'=>$borrarForm->createView()));
+    }
+    
+     
+    /**
+     * @param type $task
+     * @return type
+    */
+    private function createDeleteForm($task){
+        return $this->createFormBuilder()
+                ->setAction($this->generateUrl('_borrar_tarea', array('id' => $task->getId())))
+                ->setMethod('DELETE')
+                ->getForm();
+    }
+    
+    /**
+     * @Route("/tareas/borrartarea/{id}", name="_borrar_tarea")
+     * @param \App\Controller\Request $request
+     */
+     public function borrarTarea(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository(Task::class)->find($id);
+        if(!$task){
+            throw $this->createNotFoundException('Tarea no encontrada.');
+        }
+        $form= $this->createDeleteForm($task);
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid()) {
+            $em->remove($task);
+            $em->flush();
+            $SuccessMessage = 'La tarea ha sido borrado correctamente';
+            $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
+            return $this->redirectToRoute('_lista_tareas'); 
+  
+        }
+        return $this->render('listaTareas.html.twig', array('form' => $form->createView()));
+    }
+    
+    
+     /**
+     * @Route("/tareas/editartarea/{id}", name="_editar_tarea" )
+     */
+    public function editarTarea($id){
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository(Task::class)->find($id);
+        if(!$task){
+            throw $this->createNotFoundException('Tarea no encontrado.');
+        }
+        $form= $this->createEditForm($task);
+        return $this->render('editTarea.html.twig', array('form' => $form->createView(), 'task' => $task));
+    }
+    
+    /**
+     * 
+     * @param Task $task
+     * @return type
+     */
+    private function createEditForm(Task $task) {
+        $form = $this->createForm(Form_TaskType::class, $task,
+                array('action' => $this->generateUrl('_update_tarea', 
+                array('id'=> $task->getId())), 'method' =>'PUT'));
+        return $form;
+    }
+    
+    /**
+     * @Route("/tareas/updatetarea/{id}", name="_update_tarea")
+     * @param \App\Controller\Request $request
+     */
+     public function updateTarea($id, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository(Task::class)->find($id);
+        if(!$task){
+            throw $this->createNotFoundException('Tarea no encontrado.');
+        }
+        $form= $this->createEditForm($task);
+        $form->handleRequest($request);
+       if ( $form->isSubmitted() && $form->isValid()) {
+            $task->setEstado(0);
+            $em->flush();
+            $SuccessMessage = 'La tarea ha sido modificado correctamente';
+            $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
+            return $this->redirectToRoute('_editar_tarea', array('id'=> $task->getId()));          
+        }
+        return $this->render('editTarea.html.twig', array('form' => $form->createView()));
+    }
+    
+    /**
+     *  @Route("/tareas/borrartarealistado/{id}", name="_borrar_tarea_listado")
+     * @param \App\Controller\Request $request
+     */
+    public function borrarTareaListado(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository(Task::class)->find($id);
+        if (!$task) {
+            throw $this->createNotFoundException('Tarea no encontrado.');
+        }
+        $em->remove($task);
+        $em->flush();
+        $SuccessMessage = 'La tarea ha sido borrada correctamente';
+        $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
+        return $this->redirectToRoute('_lista_tareas');
+    }
+    
+    /**
+     *  @Route("/tareas/mistareas", name="_mis_tareas")
+     * @param \App\Controller\Request $request
+     */
+    public function misTareas (Request $request){
+        $idUser= $this->get('security.token_storage')->getToken()->getUser()->getId();
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT t FROM App\Entity\Task t JOIN t.user u WHERE u.id = :idUser ORDER BY t.id DESC";
+        $tasks = $em->createQuery($dql)->setParameter('idUser', $idUser);
+        $paginator= $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                           $tasks, $request->query->getInt('page', 1), 8);
+               
+        return $this->render('misTareas.html.twig', array('pagination' => $pagination));
     }
 }
