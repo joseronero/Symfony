@@ -2,7 +2,7 @@
 {# Mensaje satisfactorio #}
  {% if app.session.flashbag.has('mensaje') %}
 
-     <div class="ui success message" role="alert" style="margin-top:4%;">
+     <div class="ui success message" id="mensaje-ok" role="alert" style="margin-top:4%;">
        {% for stringMesage in app.session.flashbag.get( 'mensaje' ) %} 
           <div class="header">
                 {{ stringMesage }}
@@ -16,7 +16,7 @@
  {# Mensaje error #}
  {% if app.session.flashbag.has('error') %}
    
-     <div class="ui negative message" role="alert" style="margin-top:4%;">
+     <div class="ui negative message" id="mensaje-error" role="alert" style="margin-top:4%;">
        {% for stringMesage in app.session.flashbag.get( 'error' ) %} 
           <div class="header">
                 {{ stringMesage }}
@@ -26,4 +26,15 @@
         
 {% endif %}
 
+{# Mensaje advertencia #}
+ {% if app.session.flashbag.has('advertencia') %}
 
+     <div class="ui warning message" id="mensaje-warning" role="alert" style="margin-top:4%;">
+       {% for stringMesage in app.session.flashbag.get( 'advertencia' ) %} 
+          <div class="header">
+                {{ stringMesage }}
+          </div>
+        {% endfor %}
+     </div>
+     
+{% endif %}

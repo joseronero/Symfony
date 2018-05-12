@@ -19,3 +19,7 @@ span.contarea {
 span.sintarea {
     color: red;
 }
+
+.main.container {
+    margin-top: 7em;
+}

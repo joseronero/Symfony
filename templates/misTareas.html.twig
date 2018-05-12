@@ -1,16 +1,16 @@
 {% extends 'layaout.html.twig' %}
 {% block body %}
  {{parent()}}     
-<div style="margin-left: auto; margin-right: auto; margin-top:12%;">
-    <h2 class="ui dividing header" style="width: 64%; margin-left: 15%;">Lista de Tareas</h2>
-    <div class="ui ribbon blue label" style="margin-left: 15%;">
+<div style="margin-left: auto; margin-right: auto;">
+    <h2 class="ui dividing header">Lista de Tareas</h2>
+    <div class="ui ribbon blue label">
     Total registros: {{pagination.getTotalItemCount}}
     </div>
     {%if not pagination|length %}
-       <h2 class="ui header" style="margin-left: 15%;">No existen tareas con esos par&aacutemetros de b&uacutesqueda</h2>
+       <h2 class="ui header">No existen tareas con esos par&aacutemetros de b&uacutesqueda</h2>
     {%endif%}
     {%if pagination|length %}
-    <table class= "ui collapsing  celled table" border="1" style="margin-left: 15%;">
+    <table class= "ui collapsing  celled table" border="1">
         <thead>
             <tr>
                 <th>{{knp_pagination_sortable(pagination, 'Título','t.titulo')}}</th> 
@@ -30,12 +30,16 @@
                         {% if task.estado == '1' %}
                             <span class="contarea"><i class="check circle outline icon"></i></span>
                         {% elseif task.estado == '0' %}
-                             <span class="sintarea"><i class="clock outline icon"></i></span>
+                             <span class="sintarea"><i id="procesar_{{task.id}}" class="clock outline icon"></i></span>
                         {% endif %}                   
                     </td>     
                     <td class="actions">
                         <a href="{{ path('_ver_tarea', {id: task.id}) }}" class="ui green basic button">Ver</a>
-                         <a href="#" class="ui blue basic button">Procesar</a> 
+                        {% if task.estado == '1' %}
+                            <a href="#"  class="ui blue basic button disabled">Procesar</a> 
+                        {%else%}
+                            <a href="{{ path('procesar_tarea', {id: task.id}) }}" id="enlace_{{task.id}}" class="ui blue basic button">Procesar</a>
+                        {%endif%}    
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         {% if is_granted('ROLE_ADMIN')%}      
                         <a href="{{ path('_editar_tarea', {id: task.id}) }}" class="ui orange basic button">Editar</a>    
@@ -48,9 +52,25 @@
         </tbody>
     </table>
     {%endif%}    
-    <div style="margin-left: 15%;">
+    <div>
         {{knp_pagination_render(pagination)}}
     </div>    
 </div>
+ <div class="ui small modal finalizar" role="dialog">
+  <div class="ui icon header">
+    <i class="exclamation circle icon"></i>
+    Atención
+  </div>
+  <div class="content">
+    <p>Va a finalizar la tarea, ¿Estás seguro?</p>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">No</div>  
+    <div class="ui positive button">
+    Si
+    <i class="checkmark icon"></i>
+    </div>   
+  </div>
+</div>
           
-{%endblock%}{# empty Twig template #}
+{%endblock%}

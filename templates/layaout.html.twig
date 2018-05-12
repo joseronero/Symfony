@@ -15,11 +15,29 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %} 
-           {{include('menu.html.twig')}}       
-           {{include('mensajes.html.twig')}} 
-        {% endblock %}
+    <body>      
+        {{include('menu.html.twig')}}  
+        {{include('mensajes.html.twig')}}
+        <div class="ui main container">
+            {% block idiomas %}
+              <div class="ui grid" style="margin-bottom:2%;">  
+                <div id="idioma">
+                    <form id="idiomaForm" name="idiomaForm" method="post">
+                        <input type="hidden" id="idiomaVal" name="idiomaVal">
+                        <a href="#" id="bandera_en">
+                            <img title="English website" alt="English website" src="{{ asset('images/bandera-gran-bretana.gif')}}">
+                        </a>
+                        <a href="#" id="bandera_es">
+                            <img src="{{asset('images/bandera-espana.gif')}}" alt="Sitio Web Espa&ntilde;ol" title="Sitio Web Espa&ntilde;ol">
+                        </a>
+                    </form>
+                </div>
+              </div>           
+            {% endblock %}
+            {% block body %}  
+            {% endblock %}
+        </div> 
+                     
         {% block javascripts %}       
           <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
           <script src="https://code.jquery.com/jquery-3.3.1.js" 

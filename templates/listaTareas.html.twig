@@ -1,16 +1,16 @@
 {% extends 'layaout.html.twig' %}
 {% block body %}
  {{parent()}}     
-<div style="margin-left: auto; margin-right: auto; margin-top:12%;">
-    <h2 class="ui dividing header" style="width: 64%; margin-left: 15%;">Lista de Tareas</h2>
-    <div class="ui ribbon blue label" style="margin-left: 15%;">
+<div style="margin-left: auto; margin-right: auto">
+    <h2 class="ui dividing header">Lista de Tareas</h2>
+    <div class="ui ribbon blue label">
     Total registros: {{pagination.getTotalItemCount}}
     </div>
     {%if not pagination|length %}
-       <h2 class="ui header" style="margin-left: 15%;">No existen tareas con esos par&aacutemetros de b&uacutesqueda</h2>
+       <h2 class="ui header">No existen tareas con esos par&aacutemetros de b&uacutesqueda</h2>
     {%endif%}
     {%if pagination|length %}
-    <table class= "ui collapsing  celled table" border="1" style="margin-left: 15%;">
+    <table class= "ui collapsing  celled table" border="1">
         <thead>
             <tr>
                 <th>{{knp_pagination_sortable(pagination, 'Título','t.titulo')}}</th> 
@@ -47,7 +47,7 @@
         </tbody>
     </table>
     {%endif%}    
-    <div style="margin-left: 15%;">
+    <div>
         {{knp_pagination_render(pagination)}}
     </div>    
 </div>

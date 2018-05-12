@@ -2,13 +2,13 @@
 {% extends 'layaout.html.twig' %}
 {% block body %}
  {{parent()}}     
-<div style="margin-left: auto; margin-right: auto; margin-top:5%;">
-    <h2 class="ui dividing header" style="width: 64%; margin-left: 15%;">Lista de usuarios</h2>
-    <div class="ui ribbon blue label" style="margin-left: 15%;">
+<div style="margin-left: auto; margin-right: auto;">
+    <h2 class="ui dividing header">Lista de usuarios</h2>
+    <div class="ui ribbon blue label">
     Total registros: {{pagination.getTotalItemCount}}
     </div>
     <form method="post" name="search" action="" role="search">
-        <div class="ui category search" style="margin-left: 15%; margin-top: 2%;">
+        <div class="ui category search">
             <div class="ui icon input">
                 <input class="prompt" name="query" value="{{app.request.get('query')}}" placeholder="Buscar registro..." type="text" >
                 <i class="search icon"></i>
@@ -17,10 +17,10 @@
         </div>
     </form> 
     {%if not pagination|length %}
-       <h2 class="ui header" style="margin-left: 15%;">No existen usuarios con esos par&aacutemetros de b&uacutesqueda</h2>
+       <h2 class="ui header">No existen usuarios con esos par&aacutemetros de b&uacutesqueda</h2>
     {%endif%}
     {%if pagination|length %}
-    <table class= "ui collapsing  celled table" border="1" style="margin-left: 15%;">
+    <table class= "ui collapsing  celled table" border="1">
         <thead>
             <tr>
                 <th>{{knp_pagination_sortable(pagination, 'Username','u.username')}}</th> 
@@ -64,7 +64,7 @@
         </tbody>
     </table>
     {%endif%}    
-    <div style="margin-left: 15%;">
+    <div>
         {{knp_pagination_render(pagination)}}
     </div>    
 </div>

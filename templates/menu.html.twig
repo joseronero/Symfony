@@ -3,47 +3,39 @@
     <div class="ui container">
         <div class="header item">
             <img class="logo" src="{{ asset('images/logo.png') }}"> Asignaciones
-        </div>    
-        <a href="{{ path('_home') }}" class="item">Inicio</a>
+        </div>  
+        <a href="{{ path('_home') }}" class="item">Inicio</a>   
          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-              {% if is_granted('ROLE_ADMIN')%}  
+              {% if is_granted('ROLE_ADMIN')%}         
                     <div class="ui simple dropdown item">
                         Usuarios <i class="dropdown icon"></i>
                         <div class="menu">                         
                             <a class="item" href="{{ path('_lista_usuarios') }}">Listado de usuarios</a>
+                            <a class="item" href="{{ path('_nuevo_usuario') }}">Crear usuario</a>
                         </div>
                     </div>
                     <div class="ui simple dropdown item">
                         Tareas <i class="dropdown icon"></i>
                         <div class="menu">                         
-                            <a class="item" href="{{ path('_lista_tareas') }}">Listado de tareas</a>
+                            <a class="item" href="{{ path('_lista_tareas') }}">Listado de tareas</a>   
+                            <a class="item" href="{{ path('_nueva_tarea')}}">Crear tarea</a>      
                         </div>
                     </div>    
               {% endif %}
               {% if is_granted('ROLE_USER') %}
                         <a class="item" href="{{ path('_mis_tareas') }}">Mis tareas</a>
               {%endif%}                          
-        {% endif %}
+        {% endif %}    
         <div class="ui right simple dropdown item">
             <img class="logo" src="{{ asset('images/perfil.png') }}"><i class="dropdown icon"></i>
             <div class="menu">
-
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}   
                     <a class="item" href="#" >
                         {{ app.user.username }}
                     </a>
                      <a class="item" href="{{ path('_editar_usuario', {id: app.user.getId()}) }}">Perfil</a>
                 {%endif%} 
-
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a class="item" href="{{ path('_nuevo_usuario') }}">
-                            Crear usuario
-                        </a>
-                        <a class="item" href="{{ path('_nueva_tarea')}}">
-                            Crear tarea
-                        </a>               
-                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}                         
                         <a class="item" href="/logout">
                             Salir

@@ -26,6 +26,7 @@ class UserController extends Controller {
      * @Route("/user/inicio", name="_inicio")
      */
     public function inicio (Request $request) {
+      
        return $this->render('layaout.html.twig');
     }
     
@@ -33,6 +34,9 @@ class UserController extends Controller {
      * @Route("/user/home", name="_home")
      */
     public function home (Request $request) {
+       // $locale = $request->getLocale();
+       
+     // return new Response($locale);
        return $this->render('home.html.twig');
     }
      

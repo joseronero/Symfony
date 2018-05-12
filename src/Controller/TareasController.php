@@ -201,7 +201,31 @@ class TareasController extends Controller
         $paginator= $this->get('knp_paginator');
         $pagination = $paginator->paginate(
                            $tasks, $request->query->getInt('page', 1), 8);
-               
+        
         return $this->render('misTareas.html.twig', array('pagination' => $pagination));
     }
+    
+ 
+    /**
+     *  @Route("/tareas/procesartareas/{id}", name="procesar_tarea")
+     * @param \App\Controller\Request $request
+     */
+    public function procesarTarea($id, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository(Task::class)->find($id);
+        if (!$task) {
+            throw $this->createNotFoundException('Tarea no encontrado.');
+        }
+        if ($task->getEstado() === 1) {
+            $WarningMessage = 'La tarea ya había sido finalizada correctamente';
+            $request->getSession()->getFlashBag()->add('advertencia', $WarningMessage);
+        } else {
+            $task->setEstado(1);
+            $em->flush();
+            $SuccessMessage = 'La tarea ha sido finalizada correctamente';
+            $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
+        }
+        return $this->redirectToRoute('_mis_tareas');
+    }
+    
 }
