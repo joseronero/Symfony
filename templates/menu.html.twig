@@ -2,28 +2,28 @@
 <div class="ui fixed inverted menu">
     <div class="ui container">
         <div class="header item">
-            <img class="logo" src="{{ asset('images/logo.png') }}"> Asignaciones
+            <img class="logo" src="{{ asset('images/logo.png') }}"> {{'Asignaciones'|trans}}
         </div>  
-        <a href="{{ path('_home') }}" class="item">Inicio</a>   
+        <a href="{{ path('_home') }}" class="item">{{'Inicio'|trans}}</a>   
          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
               {% if is_granted('ROLE_ADMIN')%}         
                     <div class="ui simple dropdown item">
-                        Usuarios <i class="dropdown icon"></i>
+                        {{'Usuarios'|trans}} <i class="dropdown icon"></i>
                         <div class="menu">                         
-                            <a class="item" href="{{ path('_lista_usuarios') }}">Listado de usuarios</a>
-                            <a class="item" href="{{ path('_nuevo_usuario') }}">Crear usuario</a>
+                            <a class="item" href="{{ path('_lista_usuarios') }}">{{'Listado de usuarios'|trans}}</a>
+                            <a class="item" href="{{ path('_nuevo_usuario') }}">{{'Crear usuario'|trans}}</a>
                         </div>
                     </div>
                     <div class="ui simple dropdown item">
-                        Tareas <i class="dropdown icon"></i>
+                        {{'Tareas'|trans}} <i class="dropdown icon"></i>
                         <div class="menu">                         
-                            <a class="item" href="{{ path('_lista_tareas') }}">Listado de tareas</a>   
-                            <a class="item" href="{{ path('_nueva_tarea')}}">Crear tarea</a>      
+                            <a class="item" href="{{ path('_lista_tareas') }}">{{'Listado de tareas'|trans}}</a>   
+                            <a class="item" href="{{ path('_nueva_tarea')}}">{{'Crear tarea'|trans}}</a>      
                         </div>
                     </div>    
               {% endif %}
               {% if is_granted('ROLE_USER') %}
-                        <a class="item" href="{{ path('_mis_tareas') }}">Mis tareas</a>
+                        <a class="item" href="{{ path('_mis_tareas') }}">{{'Mis tareas'|trans}}</a>
               {%endif%}                          
         {% endif %}    
         <div class="ui right simple dropdown item">
@@ -33,17 +33,17 @@
                     <a class="item" href="#" >
                         {{ app.user.username }}
                     </a>
-                     <a class="item" href="{{ path('_editar_usuario', {id: app.user.getId()}) }}">Perfil</a>
+                        <a class="item" href="{{ path('_editar_usuario', {id: app.user.getId()}) }}">{{'Perfil'|trans}}</a>
                 {%endif%} 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}                         
                         <a class="item" href="/logout">
-                            Salir
+                            {{'Salir'|trans}}
                         </a>
                     {%endif%}   
                 {% else %}
                     <a class="item" href="{{ path('_login_seguro') }}">
-                        Ingresar
+                        {{'Ingresar'|trans}}
                     </a>
                 {% endif %}                  
             </div>

@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Perfil</source>
+                <target>Profile</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Tareas</source>
+                <target>Tasks</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Ingresar</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Salir</source>
+                <target>Logout</target>
+            </trans-unit> 
+            <trans-unit id="5">
+                <source>Bienvenido a nuestra web de asignaciones de tareas de usuario.</source>
+                <target>Welcome to our web of assignments of user tasks.</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Inicio</source>
+                <target>Start</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Asignaciones</source>
+                <target>Assignments</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Asignaciones de Tareas</source>
+                <target>Assignments of Tasks</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Usuarios</source>
+                <target>Users</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Listado de usuarios</source>
+                <target>List of users</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Crear usuario</source>
+                <target>Create user</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Listado de tareas</source>
+                <target>List of tasks</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Crear tarea</source>
+                <target>Create task</target>
+            </trans-unit>
+             <trans-unit id="14">
+                <source>Mis tarea</source>
+                <target>My tasks</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Autenticación de usuario</source>
+                <target>User authentication</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Usuario</source>
+                <target>User</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Contraseña</source>
+                <target>Password</target>
+            </trans-unit>
+            
+        </body>
+    </file>
+</xliff>

@@ -17,12 +17,16 @@ class LocaleSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-            
-        $locale = $request->query->get ("idiomaVal");
-        //    $request->getSession ()->set ( '_locale' , $locale );
-        //    $request->setLocale ( $locale );
-            printf($locale);
+        /** @var Request $request */
+     /*   $request = $event->getRequest ();
+
+        //comprobamos si se ha cambiado el idioma, sino lo obtenemos de la session y si is empty, default
+        $locale = $request->query->get ( 'idiomaVal' , $request->getSession ()->get ( '_locale' , $this->defaultLocale ) );
+
+        //establecemos los valores en la session y el request
+        $request->getSession ()->set ( '_locale' , $locale );
+
+        $request->setLocale ( $locale );*/
         
     }
 
