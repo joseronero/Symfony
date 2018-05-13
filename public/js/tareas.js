@@ -25,19 +25,15 @@ $('a[id^="enlace_"]').click(function (event){
     
     });   
    
-   
+/** Controlar el cambio de idioma mediante banderas **/   
  $('a[id="bandera_es"]').click (function(event){
      event.preventDefault();
      $('#idiomaVal').val('es');
-     var idioma = $('#idiomaVal').val();
-     console.log(idioma);
      $('#idiomaForm').submit();
  }); 
  
   $('a[id="bandera_en"]').click (function(event){
      event.preventDefault();
      $('#idiomaVal').val('en');
-      var idioma = $('#idiomaVal').val();
-     console.log(idioma);
      $('#idiomaForm').submit();
  });  

@@ -4,13 +4,13 @@
  {{parent()}}     
 <div style="margin-left: auto; margin-right: auto;">
     <h2 class="ui dividing header">{{'Listado de usuarios'|trans}}</h2>
-    <div class="ui ribbon blue label">
-    Total registros: {{pagination.getTotalItemCount}}
+    <div class="ui ribbon blue label" style="margin-bottom:1%;">
+        {{'Total registros'|trans}}: {{pagination.getTotalItemCount}}
     </div>
     <form method="post" name="search" action="" role="search">
         <div class="ui category search">
             <div class="ui icon input">
-                <input class="prompt" name="query" value="{{app.request.get('query')}}" placeholder="Buscar registro..." type="text" >
+                <input class="prompt" name="query" value="{{app.request.get('query')}}" placeholder="{{'Buscar registro'|trans}}..." type="text" >
                 <i class="search icon"></i>
             </div>
                 <div class="results"></div>    
@@ -20,16 +20,16 @@
        <h2 class="ui header">No existen usuarios con esos par&aacutemetros de b&uacutesqueda</h2>
     {%endif%}
     {%if pagination|length %}
-    <table class= "ui collapsing  celled table" border="1">
+    <table class= "ui collapsing  celled table" border="1" style="text-align:center;">
         <thead>
             <tr>
-                <th>{{knp_pagination_sortable(pagination, 'Username','u.username')}}</th> 
-                <th>{{knp_pagination_sortable(pagination, 'Nombre','u.firstName')}}</th> 
-                <th>{{knp_pagination_sortable(pagination, 'Apellidos','u.lastName')}}</th> 
+                <th>{{knp_pagination_sortable(pagination, 'Usuario'|trans,'u.username')}}</th> 
+                <th>{{knp_pagination_sortable(pagination, 'Nombre'|trans,'u.firstName')}}</th> 
+                <th>{{knp_pagination_sortable(pagination, 'Apellidos'|trans,'u.lastName')}}</th> 
                 <th>{{knp_pagination_sortable(pagination, 'Email','u.email')}}</th> 
-                <th>{{knp_pagination_sortable(pagination, 'Rol','u.role')}}</th>
-                <th>{{knp_pagination_sortable(pagination, 'Activo','u.isActive')}}</th>
-                <th>Acci&oacute;n</th>
+                <th>{{knp_pagination_sortable(pagination, 'Rol'|trans,'u.role')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'Activo'|trans,'u.isActive')}}</th>
+                <th>{{'Acción'|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -41,23 +41,23 @@
                     <td>{{user.email}}</td>
                     <td>
                         {% if user.role == 'ROLE_ADMIN' %}
-                            <strong>Administrador</strong>
+                            <strong>{{'Administrador'|trans}}</strong>
                         {% elseif user.role == 'ROLE_USER' %}
-                            <strong>Usuario</strong>
+                            <strong>{{'Usuario'|trans}}</strong>
                         {% endif %}                  
                     </td>
                     <td>
                         {% if user.isActive == '1' %}
-                            <strong>Si</strong>
+                            <strong>{{'Si'|trans}}</strong>
                         {% elseif user.isActive == '0' %}
                             <strong>No</strong>
                         {% endif %}                   
                     </td>
                    
                     <td class="actions">
-                        <a href="{{ path('_ver_usuario', {id: user.id}) }}" class="ui green basic button">Ver</a>
-                        <a href="{{ path('_editar_usuario', {id: user.id}) }}" class="ui orange basic button">Editar</a>    
-                        <a href="{{ path('_borrar_usuario_listado', {id: user.id}) }}" id="enlace_{{user.id}}" class="ui red basic button">Borrar</a>             
+                        <a href="{{ path('_ver_usuario', {id: user.id}) }}" class="ui green basic button">{{'Ver'|trans}}</a>
+                        <a href="{{ path('_editar_usuario', {id: user.id}) }}" class="ui orange basic button">{{'Editar'|trans}}</a>    
+                        <a href="{{ path('_borrar_usuario_listado', {id: user.id}) }}" id="enlace_{{user.id}}" class="ui red basic button">{{'Borrar'|trans}}</a>             
                     </td>                     
                 </tr>
             {% endfor %}
