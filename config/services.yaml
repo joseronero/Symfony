@@ -44,20 +44,20 @@ knp_paginator:
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template                                
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template 
 
-fos_elastica:
-    clients:
-        default: {host: localhost, port: 9200}
-    indexes:
-        app:
-            types:
-                user:
-                    properties:
-                        firstName: ~
-                        lastName: ~
-                    persistence:
-                        driver: orm
-                        model: App\Entity\User
-                        provider: ~
-                        listener: ~
-                        finder: ~
+#fos_elastica:
+#    clients:
+#        default: {host: localhost, port: 9200}
+#   indexes:
+#        app:
+#            types:
+#                user:
+#                    properties:
+#                        firstName: ~
+#                        lastName: ~
+#                    persistence:
+#                        driver: orm
+#                        model: App\Entity\User
+#                        provider: ~
+#                       listener: ~
+#                        finder: ~ 
                      

@@ -54,8 +54,8 @@
                 <source>Crear tarea</source>
                 <target>Create task</target>
             </trans-unit>
-             <trans-unit id="14">
-                <source>Mis tarea</source>
+            <trans-unit id="14">
+                <source>Mis tareas</source>
                 <target>My tasks</target>
             </trans-unit>
             <trans-unit id="15">
@@ -78,7 +78,7 @@
                 <source>Si</source>
                 <target>Yes</target>
             </trans-unit>
-             <trans-unit id="20">
+            <trans-unit id="20">
                 <source>Administrador</source>
                 <target>Administrator</target>
             </trans-unit>
@@ -122,9 +122,129 @@
                 <source>Nuevo</source>
                 <target>New</target>
             </trans-unit>
-              <trans-unit id="31">
+            <trans-unit id="31">
                 <source>Selecciona un rol</source>
                 <target>Select a role</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>Va a borrar el usuario, ¿Estás seguro?</source>
+                <target>You will delete the user, are you sure?</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>Atención</source>
+                <target>Attention</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>Va a borrar la tarea, ¿Estás seguro?</source>
+                <target>You will delete the task, are you sure?</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>El usuario ha sido creado correctamente</source>
+                <target>The user has been created correctly</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>El usuario ha sido modificado correctamente</source>
+                <target>The user has been modified correctly</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Editar Usuario</source>
+                <target>Edit User</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>El usuario ha sido borrado correctamente</source>
+                <target>The user has been erased correctly</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Usuario no encontrado</source>
+                <target>User not found</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Tarea no encontrada</source>
+                <target>Task not found</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>La tarea ha sido creada correctamente</source>
+                <target>The task has been created correctly</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>La tarea ha sido modificada correctamente</source>
+                <target>The task has been modified correctly</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>La tarea ha sido finalizada correctamente</source>
+                <target>The task has been successfully completed</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>La tarea ha sido finalizada correctamente</source>
+                <target>The task has been successfully completed</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>La tarea ya había sido finalizada correctamente</source>
+                <target>The task had already been completed correctly</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>La tarea ha sido borrada correctamente</source>
+                <target>The task has been erased correctly</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>Título</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Fecha</source>
+                <target>Date</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Estado</source>
+                <target>State</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Listado de Tareas</source>
+                <target>List of Task</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>Descripción</source>
+                <target>Description</target>
+            </trans-unit>
+             <trans-unit id="52">
+                <source>Editar Tarea</source>
+                <target>Edit Tasks</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>Fecha de creación</source>
+                <target>Creation date</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>Fecha de modificación</source>
+                <target>Modification date</target>
+            </trans-unit>
+             <trans-unit id="55">
+                <source>Tarea</source>
+                <target>Task</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>Nueva Tarea</source>
+                <target>New Task</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>Guardar Tarea</source>
+                <target>Save Task</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>Título de la tarea</source>
+                <target>Title of the task</target>
+            </trans-unit>
+            <trans-unit id="59">
+                <source>Descripción de la tarea</source>
+                <target>Description of the task</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>Va a finalizar la tarea, ¿Estás seguro?</source>
+                <target>You will finish the task, are you sure?</target>
+            </trans-unit>
+             <trans-unit id="61">
+                <source>Procesar</source>
+                <target>Process</target>
             </trans-unit>
         </body>
     </file>

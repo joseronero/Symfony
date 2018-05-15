@@ -2,22 +2,22 @@
 
     {{form_widget(form)}}
 
-    <input type="button" class="ui red button" value="Borrar Usuario" style="margin-top: 1%;" onclick="borrarUsuario()">
+    <input type="button" class="ui red button" value="{{'Borrar'|trans}} {{'Usuario'|trans}}" style="margin-top: 1%;" onclick="borrarUsuario()">
         
 {{form_end(form)}}
 
 <div class="ui small modal">
   <div class="ui icon header">
     <i class="exclamation circle icon"></i>
-    Atención
+    {{'Atención'|trans}}
   </div>
   <div class="content">
-    <p>Va a borrar el usuario, ¿Estás seguro?</p>
+    <p>{{'Va a borrar el usuario, ¿Estás seguro?'|trans}}</p>
   </div>
   <div class="actions">
     <div class="ui black deny button">No</div>  
     <div class="ui positive button">
-    Si
+        {{'Si'|trans}}
     <i class="checkmark icon"></i>
     </div>   
   </div>

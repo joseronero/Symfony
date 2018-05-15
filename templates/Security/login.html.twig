@@ -1,7 +1,7 @@
 {%extends 'layaout.html.twig'%}
 
 {% block body %}
-    {{parent()}} 
+   
     <div class="ui inverted segment" style="width:80%; margin-left: auto; margin-right: auto;">
         <h1 class="ui header" style="text-align: center;">{{'Autenticación de usuario'|trans}}</h1>   
         <form name="login" id="login" action="{{ path('_login_seguro') }}" method="post"> 

@@ -34,9 +34,7 @@ class UserController extends Controller {
      * @Route("/user/home", name="_home")
      */
     public function home (Request $request) {
-       // $locale = $request->getLocale();
-       
-     // return new Response($locale);
+        
        return $this->render('home.html.twig');
     }
      
@@ -93,7 +91,7 @@ class UserController extends Controller {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($oUsuario);
                 $em->flush();
-                $SuccessMessage = 'El usuario ha sido creado correctamente';
+                $SuccessMessage = $this->get('translator')->trans('El usuario ha sido creado correctamente');
                 $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
                 return $this->redirectToRoute('_crear_usuario');
             }
@@ -103,8 +101,8 @@ class UserController extends Controller {
             }
                    
         }
-        return $this->render('add.html.twig', array('form' => $form->createView(), 'error'=> $error));
-     
+        
+        return $this->render('add.html.twig', array('form' => $form->createView(), 'error'=> $error)); 
     }
     
     /**
@@ -147,7 +145,8 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $oUsuario = $em->getRepository(User::class)->find($id);
         if(!$oUsuario){
-            throw $this->createNotFoundException('Usuario no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Usuario no encontrado');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $form= $this->createEditForm($oUsuario);
         return $this->render('edit.html.twig', array('form' => $form->createView(), 'usuario' => $oUsuario));
@@ -173,10 +172,13 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $oUsuario = $em->getRepository(User::class)->find($id);
         if(!$oUsuario){
-            throw $this->createNotFoundException('Usuario no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Usuario no encontrado');
+            throw $this->createNotFoundException($ErrorMessage);
         }
+       
         $form= $this->createEditForm($oUsuario);
         $form->handleRequest($request);
+        
        if ( $form->isSubmitted() && $form->isValid()) {
             $password = $form->get('password')->getData(); 
             if(!empty($password)){
@@ -192,7 +194,7 @@ class UserController extends Controller {
                 $oUsuario->setisActive('1');
             }
             $em->flush();
-            $SuccessMessage = 'El usuario ha sido modificado correctamente';
+            $SuccessMessage = $this->get('translator')->trans('El usuario ha sido modificado correctamente');
             $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
             return $this->redirectToRoute('_editar_usuario', array('id'=> $oUsuario->getId()));          
         }
@@ -219,7 +221,8 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $oUsuario = $em->getRepository(User::class)->find($id);
         if(!$oUsuario){
-            throw $this->createNotFoundException('Usuario no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Usuario no encontrado');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $borrarForm=$this->createDeleteForm($oUsuario);
         return $this->render('view.html.twig', array('user' => $oUsuario, 'borrar_form'=>$borrarForm->createView()));
@@ -245,14 +248,15 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $oUsuario = $em->getRepository(User::class)->find($id);
         if(!$oUsuario){
-            throw $this->createNotFoundException('Usuario no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Usuario no encontrado');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $form= $this->createDeleteForm($oUsuario);
         $form->handleRequest($request);
         if ( $form->isSubmitted() && $form->isValid()) {
             $em->remove($oUsuario);
             $em->flush();
-            $SuccessMessage = 'El usuario ha sido borrado correctamente';
+            $SuccessMessage = $this->get('translator')->trans('El usuario ha sido borrado correctamente');
             $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
             return $this->redirectToRoute('_lista_usuarios'); 
   
@@ -268,11 +272,12 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $oUsuario = $em->getRepository(User::class)->find($id);
         if (!$oUsuario) {
-            throw $this->createNotFoundException('Usuario no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Usuario no encontrado');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $em->remove($oUsuario);
         $em->flush();
-        $SuccessMessage = 'El usuario ha sido borrado correctamente';
+        $SuccessMessage = $this->get('translator')->trans('El usuario ha sido borrado correctamente');
         $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
         return $this->redirectToRoute('_lista_usuarios');
     }

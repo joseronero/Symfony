@@ -7,18 +7,6 @@
     <div class="ui ribbon blue label" style="margin-bottom:1%;">
         {{'Total registros'|trans}}: {{pagination.getTotalItemCount}}
     </div>
-    <form method="post" name="search" action="" role="search">
-        <div class="ui category search">
-            <div class="ui icon input">
-                <input class="prompt" name="query" value="{{app.request.get('query')}}" placeholder="{{'Buscar registro'|trans}}..." type="text" >
-                <i class="search icon"></i>
-            </div>
-                <div class="results"></div>    
-        </div>
-    </form> 
-    {%if not pagination|length %}
-       <h2 class="ui header">No existen usuarios con esos par&aacutemetros de b&uacutesqueda</h2>
-    {%endif%}
     {%if pagination|length %}
     <table class= "ui collapsing  celled table" border="1" style="text-align:center;">
         <thead>
@@ -72,15 +60,15 @@
 <div class="ui small modal">
   <div class="ui icon header">
     <i class="exclamation circle icon"></i>
-    Atención
+    {{'Atención'|trans}}
   </div>
   <div class="content">
-    <p>Va a borrar el usuario, ¿Estás seguro?</p>
+    <p>{{'Va a borrar el usuario, ¿Estás seguro?'|trans}}</p>
   </div>
   <div class="actions">
     <div class="ui black deny button">No</div>  
     <div class="ui positive button">
-    Si
+        {{'Si'|trans}}
     <i class="checkmark icon"></i>
     </div>   
   </div>

@@ -4,21 +4,21 @@
 {{parent()}}
 <div class="ui segment" style="width: 40%; margin-left: auto; margin-right: auto;
                                background: gainsboro;">
-    <h3 class="ui dividing header" style="text-align: center; ">Editar Usuario</h3>   
+    <h3 class="ui dividing header" style="text-align: center; ">{{'Editar Usuario'|trans}}</h3>   
     {{ form_start(form,{'attr': {'novalidate': 'novalidate','role':'form'} })}}
     <div class="ui form">      
         <div class="field">
-            <label> Usuario </label>
+            <label> {{'Usuario'|trans}} </label>
             {{ form_widget(form.username,{'attr': {'class' : 'form-control','placeholder' : 'usuario'}} ) }}
             {{ form_errors(form.username) }}
         </div>
         <div class="field">
-            <label> Nombre </label>
+            <label> {{'Nombre'|trans}} </label>
             {{ form_widget(form.firstName,{'attr': {'class' : 'form-control','placeholder' : 'nombre'}} ) }}
             {{ form_errors(form.firstName) }}
         </div>
         <div class="field">
-            <label> Apellidos </label>
+            <label> {{'Apellidos'|trans}} </label>
             {{ form_widget(form.lastName,{'attr': {'class' : 'form-control','placeholder' : 'apellidos'}} ) }}
             {{ form_errors(form.lastName) }}
         </div> 
@@ -28,23 +28,23 @@
             {{ form_errors(form.email) }}
         </div> 
         <div class="field">
-            {{ form_label(form.password) }}
-            {{ form_widget(form.password,{'attr': {'class' : 'form-control','placeholder' : 'password'}} ) }}
+            <label> {{'Contraseña'|trans}} </label>
+            {{ form_widget(form.password,{'attr': {'class' : 'form-control','placeholder' : 'Contraseña'}} ) }}
             {{ form_errors(form.password) }}
         </div> 
         <div class="field">
-            <label> Rol </label>
+            <label>{{'Rol'|trans}} </label>
             {{ form_widget(form.role,{'attr': {'class' : 'form-control'}} ) }}
             {{ form_errors(form.role) }}
         </div> 
         <div class=" inline field" > 
-            <label style="cursor:pointer" for="form_user_IsActive"> Activo </label>
+            <label style="cursor:pointer" for="form_user_IsActive">{{'Activo'|trans}} </label>
             {{ form_widget(form.IsActive) }}
         </div> 
         {{ form_errors(form.IsActive) }}
         <div class="ui dividing header"> </div>
         <div style="margin-top: 3%">
-         {{form_widget(form.guardar, {'label': 'Editar usuario', 'attr': {'class' : 'ui primary button'}} ) }}
+         {{form_widget(form.guardar, {'label': 'Editar Usuario', 'attr': {'class' : 'ui primary button'}} ) }}
        </div>
        
     </div>        

@@ -68,7 +68,7 @@ class TareasController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
-            $SuccessMessage = 'La tarea ha sido creada correctamente';
+            $SuccessMessage = $this->get('translator')->trans('La tarea ha sido creada correctamente');
             $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
             return $this->redirectToRoute('_nueva_tarea');
         }
@@ -83,7 +83,8 @@ class TareasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository(Task::class)->find($id);
         if(!$task){
-            throw $this->createNotFoundException('Tarea no encontrada.');
+            $ErrorMessage = $this->get('translator')->trans('Tarea no encontrada');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $borrarForm=$this->createDeleteForm($task);
         return $this->render('viewTarea.html.twig', array('task' => $task, 'borrar_form'=>$borrarForm->createView()));
@@ -109,14 +110,15 @@ class TareasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository(Task::class)->find($id);
         if(!$task){
-            throw $this->createNotFoundException('Tarea no encontrada.');
+            $ErrorMessage = $this->get('translator')->trans('Tarea no encontrada');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $form= $this->createDeleteForm($task);
         $form->handleRequest($request);
         if ( $form->isSubmitted() && $form->isValid()) {
             $em->remove($task);
             $em->flush();
-            $SuccessMessage = 'La tarea ha sido borrado correctamente';
+            $SuccessMessage = $this->get('translator')->trans('La tarea ha sido borrada correctamente');
             $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
             return $this->redirectToRoute('_lista_tareas'); 
   
@@ -132,7 +134,8 @@ class TareasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository(Task::class)->find($id);
         if(!$task){
-            throw $this->createNotFoundException('Tarea no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Tarea no encontrada');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $form= $this->createEditForm($task);
         return $this->render('editTarea.html.twig', array('form' => $form->createView(), 'task' => $task));
@@ -158,14 +161,15 @@ class TareasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository(Task::class)->find($id);
         if(!$task){
-            throw $this->createNotFoundException('Tarea no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Tarea no encontrada');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $form= $this->createEditForm($task);
         $form->handleRequest($request);
        if ( $form->isSubmitted() && $form->isValid()) {
             $task->setEstado(0);
             $em->flush();
-            $SuccessMessage = 'La tarea ha sido modificado correctamente';
+            $SuccessMessage = $this->get('translator')->trans('La tarea ha sido modificada correctamente');
             $request->getSession ()->getFlashBag ()->add ( 'mensaje' , $SuccessMessage );
             return $this->redirectToRoute('_editar_tarea', array('id'=> $task->getId()));          
         }
@@ -180,11 +184,12 @@ class TareasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository(Task::class)->find($id);
         if (!$task) {
-            throw $this->createNotFoundException('Tarea no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Tarea no encontrada');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         $em->remove($task);
         $em->flush();
-        $SuccessMessage = 'La tarea ha sido borrada correctamente';
+        $SuccessMessage = $this->get('translator')->trans('La tarea ha sido borrada correctamente');
         $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
         return $this->redirectToRoute('_lista_tareas');
     }
@@ -214,15 +219,16 @@ class TareasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository(Task::class)->find($id);
         if (!$task) {
-            throw $this->createNotFoundException('Tarea no encontrado.');
+            $ErrorMessage = $this->get('translator')->trans('Tarea no encontrada');
+            throw $this->createNotFoundException($ErrorMessage);
         }
         if ($task->getEstado() === 1) {
-            $WarningMessage = 'La tarea ya había sido finalizada correctamente';
+            $WarningMessage = $this->get('translator')->trans('La tarea ya había sido finalizada correctamente');
             $request->getSession()->getFlashBag()->add('advertencia', $WarningMessage);
         } else {
             $task->setEstado(1);
             $em->flush();
-            $SuccessMessage = 'La tarea ha sido finalizada correctamente';
+            $SuccessMessage = $this->get('translator')->trans('La tarea ha sido finalizada correctamente');
             $request->getSession()->getFlashBag()->add('mensaje', $SuccessMessage);
         }
         return $this->redirectToRoute('_mis_tareas');

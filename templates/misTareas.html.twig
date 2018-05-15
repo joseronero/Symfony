@@ -2,22 +2,19 @@
 {% block body %}
  {{parent()}}     
 <div style="margin-left: auto; margin-right: auto;">
-    <h2 class="ui dividing header">Lista de Tareas</h2>
+    <h2 class="ui dividing header">{{'Listado de Tareas'|trans}}</h2>
     <div class="ui ribbon blue label">
-    Total registros: {{pagination.getTotalItemCount}}
+    {{'Total registros'|trans}}: {{pagination.getTotalItemCount}}
     </div>
-    {%if not pagination|length %}
-       <h2 class="ui header">No existen tareas con esos par&aacutemetros de b&uacutesqueda</h2>
-    {%endif%}
     {%if pagination|length %}
     <table class= "ui collapsing  celled table" border="1">
         <thead>
             <tr>
-                <th>{{knp_pagination_sortable(pagination, 'Título','t.titulo')}}</th> 
-                <th>{{knp_pagination_sortable(pagination, 'Fecha','t.createdAt')}}</th> 
-                <th>{{'Usuario'}}</th> 
-                <th>{{knp_pagination_sortable(pagination, 'Estado','t.estado')}}</th> 
-                <th>Acciones</th>
+                <th>{{knp_pagination_sortable(pagination, 'Título'|trans,'t.titulo')}}</th> 
+                <th>{{knp_pagination_sortable(pagination, 'Fecha'|trans,'t.createdAt')}}</th> 
+                <th>{{'Usuario'|trans}}</th> 
+                <th>{{knp_pagination_sortable(pagination, 'Estado'|trans,'t.estado')}}</th> 
+                <th>{{'Acción'|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -34,16 +31,16 @@
                         {% endif %}                   
                     </td>     
                     <td class="actions">
-                        <a href="{{ path('_ver_tarea', {id: task.id}) }}" class="ui green basic button">Ver</a>
+                        <a href="{{ path('_ver_tarea', {id: task.id}) }}" class="ui green basic button">{{'Ver'|trans}}</a>
                         {% if task.estado == '1' %}
-                            <a href="#"  class="ui blue basic button disabled">Procesar</a> 
+                            <a href="#"  class="ui blue basic button disabled">{{'Procesar'|trans}}</a> 
                         {%else%}
-                            <a href="{{ path('procesar_tarea', {id: task.id}) }}" id="enlace_{{task.id}}" class="ui blue basic button">Procesar</a>
+                            <a href="{{ path('procesar_tarea', {id: task.id}) }}" id="enlace_{{task.id}}" class="ui blue basic button">{{'Procesar'|trans}}</a>
                         {%endif%}    
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         {% if is_granted('ROLE_ADMIN')%}      
-                        <a href="{{ path('_editar_tarea', {id: task.id}) }}" class="ui orange basic button">Editar</a>    
-                        <a href="{{ path('_borrar_tarea_listado', {id: task.id}) }}" id="enlace_{{task.id}}" class="ui red basic button">Borrar</a>
+                            <a href="{{ path('_editar_tarea', {id: task.id}) }}" class="ui orange basic button">{{'Editar'|trans}}</a>    
+                        <a href="{{ path('_borrar_tarea_listado', {id: task.id}) }}" id="enlace_{{task.id}}" class="ui red basic button">{{'Borrar'|trans}}</a>
                         {%endif%}
                     {%endif%}    
                     </td>                     
@@ -59,15 +56,15 @@
  <div class="ui small modal finalizar" role="dialog">
   <div class="ui icon header">
     <i class="exclamation circle icon"></i>
-    Atención
+    {{'Atención'|trans}}
   </div>
   <div class="content">
-    <p>Va a finalizar la tarea, ¿Estás seguro?</p>
+    <p>{{'Va a finalizar la tarea, ¿Estás seguro?'|trans}}</p>
   </div>
   <div class="actions">
     <div class="ui black deny button">No</div>  
     <div class="ui positive button">
-    Si
+    {{'Si'|trans}}
     <i class="checkmark icon"></i>
     </div>   
   </div>

@@ -168,7 +168,7 @@ class User implements AdvancedUserInterface,  \Serializable
         return $this->email;
     }
 
-    public function setPassword(string $password)
+    public function setPassword(string $password=null)
     {
         $this->password = $password;
 

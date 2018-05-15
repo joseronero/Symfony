@@ -7,19 +7,19 @@
     <div class="ui middle aligned divided list">
         <div class="item" style="margin-top:2%;"> 
             <div class="content">
-              <div class="header">Username</div>
+                <div class="header">{{'Usuario'|trans}}</div>
               <div class="description" style="margin-top:1%;">{{user.username}}</div>
             </div>
         </div> 
         <div class="item" style="margin-top:2%;"> 
             <div class="content">
-              <div class="header">Nombre</div>
+              <div class="header">{{'Nombre'|trans}}</div>
               <div class="description" style="margin-top:1%;">{{user.firstName}}</div>
             </div>
         </div>        
         <div class="item" style="margin-top:2%;"> 
             <div class="content">
-              <div class="header">Apellidos</div>
+                <div class="header">{{'Apellidos'|trans}}</div>
               <div class="description" style="margin-top:1%;">{{user.lastName}}</div>
             </div>
         </div>        
@@ -31,22 +31,22 @@
         </div>     
         <div class="item" style="margin-top:2%;"> 
             <div class="content">
-              <div class="header">Rol</div>
+              <div class="header">{{'Rol'|trans}}</div>
               <div class="description" style="margin-top:1%;">
                 {% if (user.role =='ROLE_ADMIN')%} 
-                   <span> Administrador </span>
+                    <span> {{'Administrador'|trans}} </span>
                 {%else%}    
-                   <span> Administrador </span>
+                    <span> {{'Usuario'|trans}} </span>
                 {%endif%}
               </div>
             </div>
         </div>    
         <div class="item" style="margin-top:2%;"> 
             <div class="content">
-              <div class="header">Activo</div>
+              <div class="header">{{'Activo'|trans}}</div>
               <div class="description" style="margin-top:1%;">
                 {% if (user.isActive =='1')%} 
-                   <span>Si</span>
+                    <span>{{'Si'|trans}}</span>
                 {%else%}    
                    <span>No</span>
                 {%endif%}
@@ -54,7 +54,7 @@
             </div>
         </div>    
         <div class="actions" style="margin-top:3%;">
-            <a href="{{ path('_editar_usuario', {id: user.id}) }}" class="ui primary button">Editar usuario</a>
+            <a href="{{ path('_editar_usuario', {id: user.id}) }}" class="ui primary button">{{'Editar'|trans}} {{'Usuario'|trans}}</a>
             {{include ('form.html.twig', {form: borrar_form})}}      
         </div>   
     </div>    
